@@ -6,10 +6,10 @@ import transactionsRoute from "./routes/transactionsRoute.js"
 import job from "./config/cron.js"
 const PORT = process.env.PORT || 5001
 const app = express()
+app.use(express.json())
 if(process.env.NODE_ENV === "production") job.start()
 app.use(rateLimiter)
 app.use("/api/transactions", transactionsRoute)
-app.use(express.json())
 app.get("/api/health", (req,res) => {
     res.status(200).json({status: "ok"})
 })
